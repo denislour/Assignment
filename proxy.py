@@ -39,7 +39,7 @@ class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 def run(
     server_class: Type[HTTPServer] = HTTPServer,
     handler_class: Type[BaseHTTPRequestHandler] = ProxyHTTPRequestHandler,
-    port: int = 8000
+    port: int = 5000
 ):
 
     server_address = ('', port)
