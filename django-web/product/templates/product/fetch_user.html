@@ -2,27 +2,81 @@
 <html>
 
 <head>
-    <title>Fetch User</title>
+    <title>User CRUD</title>
 </head>
 
 <body>
-    <h1>User Details</h1>
-    <button id="fetchUser">Fetch User</button>
-    <div id="userData"></div>
+    <h1>User CRUD</h1>
+
+    <!-- User Form-->
+    <form id="userForm" onsubmit="submitUserForm(event)">
+        <input type="hidden" id="userId">
+        <input type="text" id="userName" placeholder="Name" required>
+        <input type="email" id="userEmail" placeholder="Email" required>
+        <button type="submit">Save User</button>
+    </form>
+
+    <!-- User List-->
+    <div id="userList"></div>
 
     <script>
-        document.getElementById('fetchUser').addEventListener('click', function () {
-            fetch('http://localhost:5000/api/users/1')  // Example to fetch user with ID 1
+        // Fetch Users
+        function fetchUsers() {
+            fetch('http://localhost:5000/api/users')
                 .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    document.getElementById('userData').innerHTML = `
-                        <p>Name: ${data.name}</p>
-                        <p>Email: ${data.email}</p>
-                    `;
+                .then(users => {
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = users.map(user =>
+                        `<div>
+                            ${user.name} - ${user.email}
+                            <button onclick="editUser(${user.id}, '${user.name}', '${user.email}')">Edit</button>
+                            <button onclick="deleteUser(${user.id})">Delete</button>
+                        </div>`
+                    ).join('');
                 })
                 .catch(error => console.error('Error:', error));
-        });
+        }
+
+        // Edit User
+        function editUser(id, name, email) {
+            document.getElementById('userId').value = id;
+            document.getElementById('userName').value = name;
+            document.getElementById('userEmail').value = email;
+        }
+
+        // Submit User Form
+        function submitUserForm(event) {
+            event.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+
+            const url = userId ? `http://localhost:5000/api/users/${userId}` : 'http://localhost:5000/api/users';
+            const method = userId ? 'PUT' : 'POST';
+
+            console.log(method);
+            fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: userName, email: userEmail })
+            })
+                .then(() => {
+                    document.getElementById('userForm').reset();
+                    fetchUsers();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Delete User
+        function deleteUser(id) {
+            fetch(`http://localhost:5000/api/users/${id}`, {
+                method: 'DELETE'
+            })
+                .then(() => fetchUsers())
+                .catch(error => console.error('Error:', error));
+        }
+
+        window.onload = fetchUsers;
     </script>
 </body>
 

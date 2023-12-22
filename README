@@ -1,0 +1,5 @@
+# @TODO
+1. [Node] - Refactor create request with logic check exist
+2. [Node] - Restructure inspired by clean architect
+3. [Node] - Handle hardcode url, port by process env
+3. [Web] - Handle hardcode url_api by constant
