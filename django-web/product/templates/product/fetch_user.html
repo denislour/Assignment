@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fetch User</title>
+</head>
+
+<body>
+    <h1>User Details</h1>
+    <button id="fetchUser">Fetch User</button>
+    <div id="userData"></div>
+
+    <script>
+        document.getElementById('fetchUser').addEventListener('click', function () {
+            fetch('http://localhost:5000/api/users/1')  // Example to fetch user with ID 1
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('userData').innerHTML = `
+                        <p>Name: ${data.name}</p>
+                        <p>Email: ${data.email}</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>
