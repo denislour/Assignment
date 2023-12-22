@@ -1,5 +1,7 @@
 # @TODO
-1. [Node] - Refactor create request with logic check exist
-2. [Node] - Restructure inspired by clean architect
-3. [Node] - Handle hardcode url, port by process env
-3. [Web] - Handle hardcode url_api by constant
+1. [Node] - Refactor create request with logic check exist.
+2. [Node] - Restructure inspired by clean architect.
+3. [Node] - Handle hardcode url, port by process env.
+4. [Web] - Handle hardcode url_api by constant.
+5. [Web] - Product and User have been inside product module -> separate them
+6. [Proxy] - Handle hard code url_api and port by command prompt when starting, default value look like the current hardcode value.
