@@ -10,6 +10,18 @@ class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         BaseHTTPRequestHandler.end_headers(self)
 
+    def do_OPTIONS(self):
+        self.send_response(200, "ok")
+        self.send_header(
+            'Access-Control-Allow-Methods',
+            'GET, POST, OPTIONS, PUT, DELETE'
+        )
+        self.send_header(
+            'Access-Control-Allow-Headers',
+            'X-Requested-With, Content-Type'
+        )
+        self.end_headers()
+
     def do_GET(self):
         self.proxy_request()
 
