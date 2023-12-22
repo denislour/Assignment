@@ -6,6 +6,10 @@ import urllib.request
 class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
     express_api_url = "http://localhost:3000"
 
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        BaseHTTPRequestHandler.end_headers(self)
+
     def do_GET(self):
         self.proxy_request()
 
