@@ -67,6 +67,6 @@ To test the fetch user functionality on the Django web app, navigate to `localho
 ## Django Web Component
 
 1. Poetry is used for package management. Ensure Poetry is installed on your system to use this component.
-2. The Django project setup involves specific CLI commands such as django-admin startproject, startapp, makemigrations, migrate, and createsuperuser.
+2. The Django project setup involves specific CLI commands such as `django-admin startproject, startapp, makemigrations, migrate, and createsuperuser`.
 3. The Product component leverages Django's capabilities in building models and registering them in the admin. CRUD operations are managed by Django for each declared model.
-4. A key feature is a basic web template that uses fetch API to communicate with the Node API through the Python proxy on port 5000. This template allows for fetching, adding, updating, and deleting users. However, as this is a basic implementation, it does not handle certain edge cases, such as failing Node's validation checks during update or create operations.
+4. A key feature is a basic web template that uses fetch API to communicate with the Node API through the Python proxy on port 5000. This template allows for `fetching, adding, updating, and deleting users`. However, as this is a basic implementation, **it does not handle** certain edge cases, such as _failing Node's validation checks during update or create operations_.
