@@ -5,7 +5,10 @@ const prisma = new PrismaClient();
 
 export async function createUser(userData: Omit<User, "id">): Promise<User> {
   try {
-    validateUser(userData);
+    const validationResult = validateUser(userData);
+    if (!validationResult.success) {
+      throw new Error("Validation error: " + validationResult.error);
+    }
     const existingUser = await prisma.user.findUnique({
       where: { email: userData.email as string },
     });
@@ -26,6 +29,10 @@ export async function updateUser(
 ): Promise<User | null> {
   try {
     validateUser(userData);
+    const validationResult = validateUser(userData);
+    if (!validationResult.success) {
+      throw new Error("Validation error: " + validationResult.error);
+    }
     const existingUser = await prisma.user.findUnique({
       where: { id: userId },
     });

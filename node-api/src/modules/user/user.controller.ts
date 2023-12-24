@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import * as userService from "./user.service";
+import {
+  createUser,
+  getUsers,
+  getUserById,
+  deleteUser,
+  updateUser,
+} from "./user.service";
 import { User } from "@prisma/client";
 
 export async function createUserController(
@@ -9,10 +15,16 @@ export async function createUserController(
   const { name, email } = req.body;
 
   try {
-    const newUser = await userService.createUser({ name, email });
+    const newUser = await createUser({ name, email });
     res.json(newUser);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    if (error instanceof Error) {
+      if (error.message.startsWith("Validation error")) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: error.message });
+      }
+    }
   }
 }
 
@@ -21,7 +33,7 @@ export async function getUsersController(
   res: Response
 ): Promise<void> {
   try {
-    const users = await userService.getUsers();
+    const users = await getUsers();
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -35,7 +47,7 @@ export async function getUserByIdController(
   const userId = parseInt(req.params.id);
 
   try {
-    const user = await userService.getUserById(userId);
+    const user = await getUserById(userId);
 
     if (user) {
       res.json(user);
@@ -55,10 +67,16 @@ export async function updateUserController(
   const { name, email }: User = req.body;
 
   try {
-    const updatedUser = await userService.updateUser(userId, { name, email });
+    const updatedUser = await updateUser(userId, { name, email });
     res.json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    if (error instanceof Error) {
+      if (error.message.startsWith("Validation error")) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: error.message });
+      }
+    }
   }
 }
 
@@ -69,7 +87,7 @@ export async function deleteUserController(
   const userId = parseInt(req.params.id);
 
   try {
-    const deletedUser = await userService.deleteUser(userId);
+    const deletedUser = await deleteUser(userId);
     res.json(deletedUser);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

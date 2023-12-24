@@ -2,7 +2,7 @@ import { User } from "@prisma/client";
 import { z, ZodError } from "zod";
 
 const userSchema = z.object({
-  username: z.string().min(3).max(30),
+  name: z.string().min(3).max(30),
   email: z.string().email(),
 });
 
