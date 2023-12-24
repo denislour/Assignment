@@ -1,6 +1,6 @@
 # Asignment
 
-This project demonstrates a full-stack application integrating a Node.js backend, a Python proxy script, and a Django web frontend.
+This project demonstrates a full-stack application integrating a Node.js backend, a Python proxy script, and a Django web application.
 
 ## Components
 
@@ -51,22 +51,22 @@ python manage.py runserver
 
 # Testing Fetch User Functionality
 
-To test the fetch user functionality on the Django web app, navigate to localhost:8000/product/fetch-user/.
+To test the fetch user functionality on the Django web app, navigate to `localhost:8000/product/fetch-user/`.
 
 # Project Overview
 
 ## Node Component
 
-1. The Node API follows a modular structure, with potential for adding more modules like auth, product, etc., each in its respective directory.
-2. Currently, the Node API only implements a basic CRUD for a User module. It lacks advanced features like authentication, authorization, email handling, and error-handling.
+1. The Node API follows a modular structure, with potential for adding more modules like `auth, product, etc.`, each in its respective directory.
+2. Currently, the Node API only implements a basic CRUD for a User module. It lacks advanced features like _authentication, authorization, email handling, and error-handling..._
 
 ## Proxy Component
 
-1. Initially, a micro-framework like Flask or FastAPI was considered for the proxy, but to keep it simple and dependency-free, pure Python was used.
+1. Initially, the use of a micro-framework such as Flask or FastAPI for the proxy was considered. However, to maintain a standalone approach and simplicity, pure Python was chosen.
 
 ## Django Web Component
 
 1. Poetry is used for package management. Ensure Poetry is installed on your system to use this component.
-2. The Django project is set up using basic CLI commands.
+2. The Django project setup involves specific CLI commands such as django-admin startproject, startapp, makemigrations, migrate, and createsuperuser.
 3. The Product component leverages Django's capabilities in building models and registering them in the admin. CRUD operations are managed by Django for each declared model.
 4. A key feature is a basic web template that uses fetch API to communicate with the Node API through the Python proxy on port 5000. This template allows for fetching, adding, updating, and deleting users. However, as this is a basic implementation, it does not handle certain edge cases, such as failing Node's validation checks during update or create operations.
