@@ -63,6 +63,7 @@ To test the fetch user functionality on the Django web app, navigate to `localho
 ## Proxy Component
 
 1. Initially, the use of a micro-framework such as Flask or FastAPI for the proxy was considered. However, to maintain a standalone approach and simplicity, pure Python was chosen.
+2. It is important to note that the proxy `should be started after` the Node API is up and running. If the Node API is not already running, the proxy will continuously attempt to retry its connections. In future iterations of the project, more attention will be given to enhance this aspect, potentially automating the dependency handling and startup sequence.
 
 ## Django Web Component
 
